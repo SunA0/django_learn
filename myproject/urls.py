@@ -19,7 +19,13 @@ urlpatterns = [
     url(r'^about/company/$', boards_views.about_company, name='about_company'),
     # topics new
     url(r'^boards/(?P<pk>\d+)/new/$', boards_views.new_topic, name='new_topic'),
-
+    # topic post
+    url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', boards_views.topic_posts, name='topic_posts'),
+    # post new
+    url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', boards_views.reply_topic, name='reply_topic'),
+    # post edit
+    url(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$',
+        boards_views.PostUpdateView.as_view(), name='edit_post'),
     # accounts
     # signup
     url(r'^signup/$', accounts_views.signup, name='signup'),
@@ -50,4 +56,5 @@ urlpatterns = [
     url(r'^settings/password/done/$',
         auth_views.PasswordChangeDoneView.as_view(template_name='accounts/password_change_done.html'),
         name='password_change_done'),
+
 ]
