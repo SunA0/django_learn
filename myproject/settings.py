@@ -38,9 +38,9 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
 
-    # app
-    'boards',
-    'accounts',
+    # apps
+    'myproject.apps.board',
+    'myproject.apps.account',
 
 ]
 
@@ -121,8 +121,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'template/static')
 ]
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'

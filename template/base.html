@@ -7,13 +7,13 @@
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    {% block stylesheet %}{% endblock %}  <!-- 这里 -->
+    {% block stylesheet %}{% endblock %}
 </head>
 <body>
 {% block body %}
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">Django Boards</a>
+            <a class="navbar-brand" href="{% url 'all_boards' %}">Joshua</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
                     aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,8 +28,8 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
                                 <a class="dropdown-item" href="#">My account</a>
-                                <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
-                                <div class="dropdown-divider"></div>
+                                {#                                <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>#}
+                                {#                                <div class="dropdown-divider"></div>#}
                                 <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
                             </div>
                         </li>

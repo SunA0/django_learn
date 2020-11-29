@@ -5,6 +5,7 @@ from markdown import markdown
 from django.contrib.auth.models import User
 
 
+# 板块
 class Board(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
@@ -19,6 +20,7 @@ class Board(models.Model):
         return Post.objects.filter(topic__board=self).order_by('-created_at').first()
 
 
+# 主题
 class Topic(models.Model):
     subject = models.CharField(max_length=255)
     last_updated = models.DateTimeField(auto_now_add=True)
@@ -27,9 +29,11 @@ class Topic(models.Model):
     views = models.PositiveIntegerField(default=0)  # <- here
 
 
+# 帖子
 class Post(models.Model):
     message = models.TextField(max_length=4000)
     topic = models.ForeignKey(Topic, related_name='posts', on_delete=models.CASCADE)
+    slug = models.SlugField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
     created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
@@ -37,3 +41,5 @@ class Post(models.Model):
 
     def get_message_as_markdown(self):
         return mark_safe(markdown(self.message, safe_mode='escape'))
+
+# todo Tag

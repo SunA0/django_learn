@@ -6,9 +6,8 @@
             {% csrf_token %}
             {% include 'shared/form.html' %}
             <button type="submit" class="btn btn-primary">Create an account</button>
+            Already have an account? <a href="{% url 'login' %}">Log In</a>
         </form>
     </div>
-    <div class="card-footer text-muted text-center">
-        Already have an account? <a href="{% url 'login' %}">Log in</a>
-    </div>
+
 {% endblock %}

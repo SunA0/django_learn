@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'all_boards' %}">Boards</a></li>
   <li class="breadcrumb-item active">{{ board.name }}</li>
 {% endblock %}
 
@@ -27,7 +27,7 @@
     <tbody>
       {% for topic in topics %}
         <tr>
-          <td><a href="{% url 'topic_posts' board.pk topic.pk %}">{{ topic.subject }}</a></td>
+{#          <td><a href="{% url 'topic_posts' board.pk topic.pk %}">{{ topic.subject }}</a></td>#}
           <td>{{ topic.starter.username }}</td>
           <td>{{ topic.replies }}</td>
           <td>{{ topic.views }}</td>
@@ -42,7 +42,7 @@
       <ul class="pagination">
         {% if topics.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ topics.previous_page_number }}">Previous</a>
+{#            <a class="page-link" href="?page={{ topics.previous_page_number }}">Previous</a>#}
           </li>
         {% else %}
           <li class="page-item disabled">
