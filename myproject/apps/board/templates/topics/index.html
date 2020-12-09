@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block title %}
   {{ board.name }} - {{ block.super }}
@@ -27,7 +27,7 @@
     <tbody>
       {% for topic in topics %}
         <tr>
-{#          <td><a href="{% url 'topic_posts' board.pk topic.pk %}">{{ topic.subject }}</a></td>#}
+          <td><a href="{% url 'all_posts' board.pk topic.pk %}">{{ topic.subject }}</a></td>
           <td>{{ topic.starter.username }}</td>
           <td>{{ topic.replies }}</td>
           <td>{{ topic.views }}</td>

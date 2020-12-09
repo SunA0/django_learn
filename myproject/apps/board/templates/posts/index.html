@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 {% block title %}{{ topic.subject }}{% endblock %}
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'topics' topic.board.pk %}">{{ topic.board.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'all_boards' %}">Boards</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'all_topics' topic.board.pk %}">{{ topic.board.name }}</a></li>
     <li class="breadcrumb-item active">{{ topic.subject }}</li>
 {% endblock %}
 {% block content %}
     <div class="mb-4">
-        <a href="{% url 'reply_topic' topic.board.pk topic.pk %}" class="btn btn-primary" role="button">Reply</a>
+        <a href="{% url 'new_post' topic.board.pk topic.pk %}" class="btn btn-primary" role="button">Reply</a>
     </div>
 
     {% for post in topic.posts.all %}
@@ -37,7 +37,7 @@
                                 <a href="{% url 'edit_post' post.topic.board.pk post.topic.pk post.pk %}"
                                    class="btn btn-primary btn-sm"
                                    role="button">Edit</a>
-                            </div>
+{#                            </div>
                         {% endif %}
                     </div>
                 </div>

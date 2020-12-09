@@ -12,36 +12,12 @@ from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-# CBV
-# class NewPostView(View):
-#     def post(self, request):
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('post_list')
-#         return render(request, 'new_post.html', {'form': form})
-#
-#     def get(self, request):
-#         form = PostForm()
-#         return render(request, 'new_post.html', {'form': form})
-
-
-# GCBV
-# from django.views.generic import CreateView
-# from django.urls import reverse_lazy
-#
-#
-# class NewPostView(CreateView):
-#     model = Post
-#     form_class = PostForm
-#     success_url = reverse_lazy('post_list')
-#     template_name = 'new_post.html'
-
 def boards(request):
     board_boards = Board.objects.all()
     return render(request, 'boards/index.html', {'boards': board_boards})
 
 
+# topic
 def topics(request, pk):
     board = get_object_or_404(Board, pk=pk)
     queryset = board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
@@ -57,10 +33,10 @@ def topics(request, pk):
         # in the url, so we fallback to the last page
         all_topics = paginator.page(paginator.num_pages)
 
-    return render(request, 'topics/index.html', {'board': board, 'topics': topics})
+    return render(request, 'topics/index.html', {'board': board, 'topics': all_topics})
 
 
-# @login_required
+@login_required
 def new_topic(request, pk):
     board = get_object_or_404(Board, pk=pk)
     if request.method == 'POST':
@@ -76,17 +52,38 @@ def new_topic(request, pk):
                 topic=topic,
                 created_by=user
             )
-            return redirect('topics', pk=board.pk)
+            return redirect('all_topics', pk=board.pk)
     else:
         form = NewTopicForm()
     return render(request, 'topics/new.html', {'form': form, 'board': board})
 
 
-# def home(request):
-#     boards = Board.objects.all()
-#     return render(request, 'boards/index.html', {'board': boards})
+# posts
+def posts(request, pk, topic_pk):
+    topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
+    topic.views += 1
+    topic.save()
+    return render(request, 'posts/index.html', {'topic': topic})
 
 
+# FBV
+@login_required
+def new_post(request, pk, topic_pk):
+    topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.topic = topic
+            post.created_by = request.user
+            post.save()
+            return redirect('all_posts', pk=pk, topic_pk=topic_pk)
+    else:
+        form = PostForm()
+    return render(request, 'posts/new.html', {'topic': topic, 'form': form})
+
+
+# homepage
 def about(request):
     # do something
     return render(request, 'about.html')
@@ -96,29 +93,6 @@ def about_company(request):
     # do something
     return render(request, 'about_company.html', {'company_name': 'Simple Complex'})
 
-#
-#
-# def topic_posts(request, pk, topic_pk):
-#     topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
-#     topic.views += 1
-#     topic.save()
-#     return render(request, 'posts/index.html', {'topic': topic})
-#
-#
-# @login_required
-# def reply_topic(request, pk, topic_pk):
-#     topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
-#     if request.method == 'POST':
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.topic = topic
-#             post.created_by = request.user
-#             post.save()
-#             return redirect('topic_posts', pk=pk, topic_pk=topic_pk)
-#     else:
-#         form = PostForm()
-#     return render(request, 'posts/new.html', {'topic': topic, 'form': form})
 #
 #
 # class PostUpdateView(UpdateView):
