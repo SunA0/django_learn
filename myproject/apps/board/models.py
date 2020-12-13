@@ -43,4 +43,11 @@ class Post(models.Model):
     def get_message_as_markdown(self):
         return mark_safe(markdown(self.message, safe_mode='escape'))
 
-# todo Tag
+
+class Tag(models.Model):
+    name = models.CharField(max_length=10, unique=True)
+    topic = models.ForeignKey(Topic, related_name='tags', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(null=True)
+    created_by = models.ForeignKey(User, related_name='tags', on_delete=models.CASCADE)
+    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)

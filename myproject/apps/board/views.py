@@ -1,13 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View
 
 from .forms import NewTopicForm, PostForm
 from .models import Board, Topic, Post
-from django.views.generic import UpdateView, ListView
-from django.utils import timezone
-
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
