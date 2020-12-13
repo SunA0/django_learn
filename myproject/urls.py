@@ -1,14 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from django.contrib.auth import views as auth_views
-from myproject.apps.account import views as accounts_views
 from myproject.apps.board import views as boards_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bd/', include('myproject.apps.board.urls')),
-    path('account/', include('myproject.apps.account.urls'))
+    path('account/', include('myproject.apps.account.urls')),
+    path('', boards_views.boards)
 ]
 
 # urlpatterns = [
