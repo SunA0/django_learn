@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect
-
 from .forms import NewTopicForm, PostForm
 from .models import Board, Topic, Post
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+# render
+from django.shortcuts import render, get_object_or_404, redirect
 
 
 def boards(request):
