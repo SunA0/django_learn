@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('bd/', include('myproject.apps.board.urls')),
     path('account/', include('myproject.apps.account.urls')),
-    path('', boards_views.boards)
+    # path('', boards_views.boards)
 ]
 
 # urlpatterns = [

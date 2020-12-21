@@ -5,11 +5,14 @@ from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # render
 from django.shortcuts import render, get_object_or_404, redirect
+# CBV
+from django.views.generic import View
 
 
-def boards(request):
-    board_boards = Board.objects.all()
-    return render(request, 'boards/index.html', {'boards': board_boards})
+class BoardsView(View):
+    def get(self, request):
+        board_boards = Board.objects.all()
+        return render(request, 'boards/index.html', {'boards': board_boards})
 
 
 # topic
