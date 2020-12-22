@@ -1,0 +1,6 @@
+Django==2.0.7
+django-widget-tweaks==1.4.8
+Markdown==3.3.3
+PyMySQL==0.10.1
+pytz==2020.1
+reverse==0.1.0
